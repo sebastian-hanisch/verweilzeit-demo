@@ -1,5 +1,7 @@
 # Verweilzeit lernen statt annehmen – Streamlit-Demo
 
+**[→ Demo live ausprobieren](https://sebastianhanisch-verweilzeit-demo.streamlit.app/)**
+
 Interaktive Fall-Demo zu **Predict-then-Optimize im Containerblock**: Ein Container kommt an, und man weiß nur ungefähr, wann er abgeholt wird. In der Stapelplanung-Demo war diese Schätzung ein Regler (wahre Abfahrt plus
 Gauß-Rauschen); hier wird die **Verweilzeit aus Merkmalen gelernt** (synthetische Daten, lineare Regression und selbst gebautes Gradient Boosting, nur `numpy`) und in die Einlagerungsregel gesteckt. Die Demo beantwortet:
 **Wie gut muss die Prognose sein, wie viele Trainingsdaten braucht sie, und ab wann ist sie besser als der einfache Ausgleich (Niedrigster Stapel, ganz ohne Prognose)?**
