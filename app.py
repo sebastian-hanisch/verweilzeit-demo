@@ -191,7 +191,7 @@ k2.metric("Ihr Paarfehler", f"{q_q70.pair_err * 100:.0f} %",
           help=f"Bestfit vorsichtig (Quantil 0,7) mit dem eingestellten Lerner, gepoolt über die 60 Blöcke der Stichprobe. Der mittlere Fehler (MAE) liegt dabei bei {q_q70.mae:.2f} Standzeiten: "
                "er sagt weniger über den Nutzen als der Anteil falsch geordneter Paare.")
 k3.metric("Wirkt wie σ", f"{'< ' if eq_kind == 'below' else '> ' if eq_kind == 'above' else ''}{eq_sigma:.2f}",
-          help="Rauschen σ in mittleren Standzeiten: das Gauß-Rauschen der Stapelplanung, das auf denselben Blöcken dieselben Umstapelungen ergibt (auf der Kurve abgelesen). Die Größenordnung σ 25 bis 50 % der Stapelplanung entspricht einer guten Ankündigung.")
+          help="Rauschen σ in mittleren Standzeiten: das Gauß-Rauschen der Stapelplanung, das auf denselben Blöcken dieselben Umstapelungen ergibt (auf der Kurve abgelesen). Die Größenordnung σ 25 bis 50 % der Stapelplanung entspricht einer guten bis mittleren Ankündigung (nachgemessen für Block 6 × 5, 80 %, Boosting, 1000 Trainingscontainer: „gut“ ν 0,3 wirkt wie σ ≈ 0,28, „mittel“ ν 0,6 wie σ ≈ 0,48, „sehr gut“ ν 0,15 wie σ ≈ 0,16, „unzuverlässig“ ν 1,0 wie σ ≈ 0,71).")
 
 st.markdown("**Umstapelungen über dem Anteil falsch geordneter Paare**")
 learned = [(n, pe, m) for n, pe, m in zip(lc.sizes, lc.pair_err, lc.moves)]
