@@ -12,9 +12,11 @@ import vwz_evaluation as E
 from vwz_presets import SETTING_SPECS
 
 APP = str(pathlib.Path(__file__).resolve().parent.parent / "app.py")
-FOOTER = ("Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://sebastianhanisch.net) – "
-          "Operations Research und Machine Learning. Interesse an einer maßgeschneiderten Lösung für "
-          "Ihr Unternehmen? [Kontakt aufnehmen](https://sebastianhanisch.net/kontakt.html)")
+FOOTER = (
+    "Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://sebastianhanisch.net) – "
+    "Operations Research und Machine Learning ([Über mich](https://sebastianhanisch.net/ueber-mich.html)). "
+    "Mehr zum Thema: [Hafenlogistik optimieren](https://sebastianhanisch.net/hafenlogistik-optimierung.html)."
+)
 
 PINS = {"Nur Standard": ("0.840", "+0.047", "-6 %"), "Mit Ankündigung": ("0.740", "-0.053", "+7 %"), "Zu wenig Daten": ("0.937", "+0.143", "-18 %"), "Sehr verlässlich": ("0.533", "-0.260", "+33 %"),
         "Voller Block": ("1.033", "-0.150", "+13 %")}
