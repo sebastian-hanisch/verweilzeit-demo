@@ -77,6 +77,7 @@ def message(at, needle):
 # ---------------------------------------------------------------------------------------------------
 # Skelett
 # ---------------------------------------------------------------------------------------------------
+@pytest.mark.slow
 def test_skeleton_and_footer():
     at = fresh()
     assert [h.value for h in at.sidebar.header] == ["⚙️ Einstellungen"]                # genau EIN Header
@@ -102,6 +103,7 @@ def test_main_metrics_are_2x2_with_signed_deltas_against_the_reference():
     assert at.metric[0].proto.color == MetricProto.GREEN and all(len(m[0]) <= 28 for m in main_metrics(at))                    # weniger Umstapelungen = besser = grün ("inverse")
 
 
+@pytest.mark.slow
 def test_caption_states_block_capacity_and_the_learner():
     at = fresh()
     cap = [c.value for c in at.caption if c.value.startswith("Block 6 × 5")][0]
@@ -112,6 +114,7 @@ def test_caption_states_block_capacity_and_the_learner():
     assert "höchstens 25 Containern" in cap and "Ankündigung: keine, Lineare Regression mit 10.000 Trainingscontainern" in cap
 
 
+@pytest.mark.slow
 def test_core_section_metrics_and_bases():
     at = fresh()
     assert [(m.label, m.value) for m in at.metric[4:7]] == [("Kipppunkt (Paare)", "28 %"), ("Ihr Paarfehler", "21 %"), ("Wirkt wie σ", "0.48")]
@@ -122,6 +125,7 @@ def test_core_section_metrics_and_bases():
     assert any("Basis: 60 Blöcke, derselbe Lerner (Gradient Boosting)" in c for c in caps)
 
 
+@pytest.mark.slow
 def test_charts_are_present_with_unique_keys():
     at = fresh()
     keys = [c.key for c in at.get("plotly_chart")]
@@ -132,6 +136,7 @@ def test_charts_are_present_with_unique_keys():
 # ---------------------------------------------------------------------------------------------------
 # Presets, Permalink
 # ---------------------------------------------------------------------------------------------------
+@pytest.mark.slow
 @pytest.mark.parametrize("name", list(C.PRESETS))
 def test_every_preset_loads_within_widget_bounds_and_shows_its_story(name):
     at = fresh()
@@ -150,6 +155,7 @@ def test_every_preset_loads_within_widget_bounds_and_shows_its_story(name):
     assert message(at, story) is not None
 
 
+@pytest.mark.slow
 def test_permalink_is_clamped_snapped_and_ignores_garbage():
     at = fresh(fp="83", nc="320", an="9", tn="-2", lr="junk", vw="niedrigster_stapel", ns="abc", ts="500")
     assert at.slider(key="fill_slider").value == 85 and at.slider(key="n_containers_slider").value == 300 and at.select_slider(key="announce_slider").value == 4
@@ -168,6 +174,7 @@ def test_permalink_roundtrip_reflects_settings():
         assert got == spec.encoder(values[key]), key
 
 
+@pytest.mark.slow
 def test_new_block_button_changes_only_the_seed():
     at = fresh()
     before = {k: at.session_state[k] for k in SETTING_SPECS if k != "seed_input"}
@@ -185,6 +192,7 @@ def test_message_helps_is_a_success_with_the_block_numbers():
     assert "Am gezeigten Block (Seed 268): 222 gegen 238 Umstapelungen" in msg.value and "Nur Standardmerkmale" not in msg.value and "Weniger als 300 Trainingscontainer" not in msg.value
 
 
+@pytest.mark.slow
 def test_message_tipped_with_the_standard_features_addition():
     at = click(fresh(), "Nur Standard")
     msg = message(at, "Die Prognose kippt")
@@ -192,6 +200,7 @@ def test_message_tipped_with_the_standard_features_addition():
     assert "Am gezeigten Block (Seed 268): 252 gegen 238 Umstapelungen" in msg.value and "Weniger als 300 Trainingscontainer" not in msg.value
 
 
+@pytest.mark.slow
 def test_message_tipped_with_the_few_data_addition():
     at = click(fresh(), "Zu wenig Daten")
     msg = message(at, "Die Prognose kippt")
@@ -204,6 +213,7 @@ def _fake_verdict(monkeypatch, kind, pct):
     monkeypatch.setattr(E, "verdict", lambda rows, key, ref=C.BASELINE: E.Verdict(kind, -0.2 if kind == "better" else 0.2 if kind == "worse" else 0.01, 0.05, pct, 60))
 
 
+@pytest.mark.slow
 @pytest.mark.parametrize("kind,pct,fragment,group", [("better", -40.0, "40 % weniger Umstapelungen", "success"), ("better", None, "0.200 weniger Umstapelungen", "success"),
                                                      ("worse", 25.0, "25 % mehr Umstapelungen", "warning"), ("worse", None, "0.200 mehr Umstapelungen", "warning"),
                                                      ("unclear", 1.0, "Kein klarer Unterschied", "info")])
@@ -215,6 +225,7 @@ def test_message_and_verdict_sentences_in_all_variants(monkeypatch, kind, pct, f
     assert all(t.count("(") == t.count(")") for t in top)
 
 
+@pytest.mark.slow
 def test_the_message_follows_the_chosen_rule():
     at = set_and_run(fresh(an="0"), view_radio=C.RULE_AWARE)
     msg = message(at, "Die Prognose kippt: Unsicherheitsbewusst")
@@ -227,6 +238,7 @@ def test_the_message_follows_the_chosen_rule():
 # ---------------------------------------------------------------------------------------------------
 # Regler an den Grenzen
 # ---------------------------------------------------------------------------------------------------
+@pytest.mark.slow
 @pytest.mark.parametrize("key,value", [("n_stacks_slider", 3), ("n_stacks_slider", 8), ("max_height_slider", 3), ("max_height_slider", 6), ("fill_slider", 40), ("fill_slider", 100),
                                        ("n_containers_slider", 100), ("n_containers_slider", 500), ("train_slider", 0), ("train_slider", 5), ("announce_slider", 0), ("announce_slider", 4),
                                        ("learner_select", "linear"), ("seed_input", 0), ("seed_input", 9999), ("train_seed_input", 0), ("train_seed_input", 99)])
@@ -235,6 +247,7 @@ def test_every_control_works_at_its_minimum_and_maximum(key, value):
     assert at.session_state[key] == value and len(at.metric) >= 7 and len(at.get("plotly_chart")) == 12
 
 
+@pytest.mark.slow
 @pytest.mark.parametrize("learner", list(C.LEARNERS))
 @pytest.mark.parametrize("announce,train", [(0, 0), (0, 5), (4, 0), (4, 5)])
 def test_every_learner_with_and_without_announcement_at_the_training_extremes(learner, announce, train):
@@ -243,6 +256,7 @@ def test_every_learner_with_and_without_announcement_at_the_training_extremes(le
     assert len(at.metric) >= 7 and at.selectbox(key="learner_select").value == learner and len(at.get("plotly_chart")) == 12
 
 
+@pytest.mark.slow
 def test_extreme_combinations_run_without_exception():
     at = fresh(ns="3", mh="3", fp="40", nc="100", an="0", tn="0", lr="linear")
     assert not at.exception and len(at.get("plotly_chart")) == 12
@@ -253,6 +267,7 @@ def test_extreme_combinations_run_without_exception():
 # ---------------------------------------------------------------------------------------------------
 # Kernabschnitt
 # ---------------------------------------------------------------------------------------------------
+@pytest.mark.slow
 def test_the_sample_does_not_depend_on_the_block_seed():
     at = fresh()
     before = [c.value for c in at.caption if c.value.startswith("Basis: 60 Blöcke (Seeds 0-59, nicht Ihr Seed). Besser")]
@@ -260,6 +275,7 @@ def test_the_sample_does_not_depend_on_the_block_seed():
     assert [c.value for c in at.caption if c.value.startswith("Basis: 60 Blöcke (Seeds 0-59, nicht Ihr Seed). Besser")] == before and len(before) == 1
 
 
+@pytest.mark.slow
 def test_the_learner_changes_the_sample_and_the_learning_curve_highlights_it():
     b = fresh()
     a = set_and_run(fresh(), learner_select="linear")
@@ -275,6 +291,7 @@ def test_tipping_metric_without_a_crossing_shows_a_dash():
 # ---------------------------------------------------------------------------------------------------
 # Blick in den Block
 # ---------------------------------------------------------------------------------------------------
+@pytest.mark.slow
 def test_view_radio_switches_the_rule_shown_in_the_metrics_and_the_block():
     at = fresh()
     caps = [c.value for c in at.caption]
@@ -283,6 +300,7 @@ def test_view_radio_switches_the_rule_shown_in_the_metrics_and_the_block():
     assert not at.exception and any(c.value.startswith("Links der Bezug, rechts 🎯 Bestfit mit Median.") for c in at.caption)
 
 
+@pytest.mark.slow
 def test_event_slider_starts_at_a_relocation_and_follows_the_scenario():
     at = fresh()
     outs = E.run_rules(E.params_from_preset(C.PRESETS["Mit Ankündigung"]), 268)
@@ -297,6 +315,7 @@ def test_event_slider_starts_at_a_relocation_and_follows_the_scenario():
 # ---------------------------------------------------------------------------------------------------
 # Regelvergleich, PDF, Texte
 # ---------------------------------------------------------------------------------------------------
+@pytest.mark.slow
 def test_comparison_table_has_a_row_per_rule_with_the_right_cells():
     at = fresh()
     df = at.dataframe[0].value
@@ -307,6 +326,7 @@ def test_comparison_table_has_a_row_per_rule_with_the_right_cells():
     assert df["MAE (Stichprobe)"].isna().tolist() == [True] + [False] * 6 and list(df["Falsch geordnete Paare % (Stichprobe)"])[2] == 21.0
 
 
+@pytest.mark.slow
 def test_each_rule_tab_shows_its_metrics_with_deltas_against_the_reference():
     at = fresh()
     tab = at.metric[7:]
@@ -315,12 +335,14 @@ def test_each_rule_tab_shows_its_metrics_with_deltas_against_the_reference():
     assert [m.value for m in tab[8:12]] == ["0.740", "+7 %", "0.31 Standzeiten", "20 %"] and tab[8].delta == "-0.053"     # MAE und Paarfehler am gezeigten Block (die Stichprobe hat 0.34 und 21 %)
 
 
+@pytest.mark.slow
 def test_pdf_download_button_is_offered():
     at = fresh()
     buttons = at.get("download_button")
     assert len(buttons) == 1 and buttons[0].proto.label == "📄 Ergebnis als PDF herunterladen"
 
 
+@pytest.mark.slow
 def test_texts_state_the_model_the_rules_the_assumptions_and_the_limits():
     at = fresh()
     text = "\n".join(m.value for m in at.expander[1].markdown)
@@ -335,6 +357,7 @@ def test_texts_state_the_model_the_rules_the_assumptions_and_the_limits():
     assert "Stapelplanung-Demo" in intro and 'Expander "Wie funktioniert diese Demo?"' in intro and '"📐 Mathematische Formulierung"' in intro
 
 
+@pytest.mark.slow
 def test_every_preset_help_and_the_intro_are_present():
     at = fresh()
     helps = {b.label: b.help for b in at.button if b.label in C.PRESETS}

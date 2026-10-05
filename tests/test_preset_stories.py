@@ -31,6 +31,7 @@ def block_moves(name):
     return {k: E.outcome_of(outs, k).moves for k in ST.POPULATION_RULES}
 
 
+@pytest.mark.slow
 @pytest.mark.parametrize("name", NAMES)
 def test_story_holds_on_average_over_the_population(name):
     for ok, text in ST.criteria(name, population(name).rows):
