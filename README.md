@@ -84,7 +84,7 @@ vier Trainings-Seeds bei kleinen Mengen), Median gegen Mittelwert gegen Quantil,
 
 ## Tests
 
-`python -m pytest tests/ -v` – 284 Tests plus 1 übersprungener (die Gegenprobe gegen scikit-learn, nur mit installiertem scikit-learn), rund 10 Minuten unter Windows und 12 Minuten in einem Linux-Container mit frischer Installation
+`python -m pytest tests/ -v` – 289 Tests plus 1 übersprungener (die Gegenprobe gegen scikit-learn, nur mit installiertem scikit-learn), rund 10 Minuten unter Windows und 12 Minuten in einem Linux-Container mit frischer Installation
 (Python 3.12, neueste Pakete; `tools/demo_linux_check.py`); `-m "not slow"` lässt die Nachmessung der Messreihe und die Stabilität über 20 Trainingshistorien aus (rund eine Minute Rechnung, ohne AppTests). Zusammensetzung:
 
 - **Rechnung:** Kernmodule der Stapelplanung gegen deren feste Referenzwerte, Handfälle, Invarianten und eine **unabhängige Simulation** (Ausgleich); Generator gegen feste Werte der Messreihe, Ereignisfolge, **keine Zukunftsinformation**,
