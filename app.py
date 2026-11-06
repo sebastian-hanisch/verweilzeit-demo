@@ -60,6 +60,17 @@ Beschreibung im Expander "📐 Mathematische Formulierung".
 """
 )
 
+# erklaerseite:einfach:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/verweilzeit-prognose-erklaert.json, nicht von Hand ändern)
+with st.expander("💬 In einfachen Worten"):
+    st.markdown(
+        """
+Ein Container kommt im Hafen an, und man weiß nur ungefähr, wann er abgeholt wird. Wer ihn auf einen Stapel stellt, will vermeiden, dass später ein Container über ihm liegt, der länger bleibt. Sonst muss ein Kran umstapeln. Die Demo lernt die Verweilzeit aus Angaben wie Art, Kunde und Wochenende und nutzt sie bei der Einlagerung. Sie vergleicht das mit der einfachen Regel, die ohne Prognose den niedrigsten Stapel nimmt. Gezeigt wird, wie gut die Prognose sein muss, wie viele Trainingsdaten sie braucht und wann ein verlässlicher Termin des Abholers mehr bringt als jedes Lernen aus den Standardangaben. Alle Daten sind erfunden.
+
+[Ausführlich und verständlich erklärt, mit Fachteil](https://sebastianhanisch.net/verweilzeit-prognose-erklaert.html)
+        """
+    )
+# erklaerseite:einfach:end
+
 st.caption("🎯 Schnellstart – ein Beispielszenario laden:")
 PRESET_HELP = {
     "Nur Standard": "Keine Ankündigung: aus Art, Kunde, Zoll, Wochenende und Vorlauf lässt sich die Verweilzeit nicht gut genug lernen, der einfache Ausgleich ist besser.",
@@ -310,6 +321,23 @@ Die Zahlen hängen an der Lauflänge: bei 120 Containern sind Anlauf und Auslauf
     )
 
 with st.expander("📐 Mathematische Formulierung"):
+    # erklaerseite:lesehilfe:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/verweilzeit-prognose-erklaert.json, nicht von Hand ändern)
+    st.markdown(
+        r"""
+**Lesehilfe.** Gegeben sind Container mit Merkmalen $x$, bekannter Ankunftszeit $t_{\mathrm{an}}$ und unbekannter Verweilzeit $D$ sowie ein Block aus Stapeln. Gesucht ist eine Einlagerungsregel, die jeden Container so auf einen Stapel stellt, dass möglichst wenige Umstapelungen entstehen; sie darf eine aus früheren Containern gelernte Prognose $q$ von $D$ benutzen.
+
+| Symbol | Bedeutung |
+|---|---|
+| $D$, $T$ | Verweilzeit eines Containers bzw. seine Abfahrt $T = t_{\mathrm{an}} + D$ |
+| $x$, $A$ | Merkmale bei Ankunft bzw. optionale Ankündigung der Verweilzeit |
+| $\nu$ | Fehler der Ankündigung in Log-Einheiten (kleiner heißt verlässlicher) |
+| $q$, $\hat e$ | Prognose der Verweilzeit (Median, Mittelwert oder Quantil 0,7) bzw. geschätzte Abfahrt $\hat e = t_{\mathrm{an}} + q$ |
+| $\sigma$ | Rauschen der Stapelplanung in mittleren Standzeiten |
+
+[Schritt für Schritt erklärt, mit Herleitung und Literatur](https://sebastianhanisch.net/verweilzeit-prognose-erklaert.html#fachleute)
+        """
+    )
+    # erklaerseite:lesehilfe:end
     st.markdown(
         r"""
 **Verweilzeit.** Zu Merkmalen $x$ ist $D \mid x \sim \mathrm{LogNormal}(\mu(x),\, s(x)^2)$, die Abfahrt $T = t_{\mathrm{an}} + D$. Prognose der Verweilzeit: $q = e^{\mu}$ (Median),

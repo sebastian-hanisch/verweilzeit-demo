@@ -2,6 +2,7 @@
 Kernabschnitt (Kipppunkt, Urteil, Lernkurve), Regelvergleich, PDF, Texte."""
 
 import pathlib
+import re
 
 import pytest
 from streamlit.proto.Metric_pb2 import Metric as MetricProto
@@ -84,7 +85,7 @@ def test_skeleton_and_footer():
     assert len(at.title) == 1 and "Verweilzeit" in at.title[0].value
     assert any(v.value.startswith("## 🎯") for v in at.markdown)
     assert [s.value for s in at.subheader] == ["📐 Wie gut muss die Prognose sein, und wie viele Daten braucht sie?"]
-    assert [e.label for e in at.expander] == ["🔧 Wie wir das erreichen – Regeln im Vergleich", "Wie funktioniert diese Demo?", "📐 Mathematische Formulierung"]
+    assert [e.label for e in at.expander] == ["💬 In einfachen Worten", "🔧 Wie wir das erreichen – Regeln im Vergleich", "Wie funktioniert diese Demo?", "📐 Mathematische Formulierung"]
     assert any(c.value == FOOTER for c in at.caption)
     presets = [b.label for b in at.button if b.label in C.PRESETS]
     assert presets == list(C.PRESETS) and len(presets) == 5 and all(len(n) <= 16 for n in presets)
@@ -345,14 +346,14 @@ def test_pdf_download_button_is_offered():
 @pytest.mark.slow
 def test_texts_state_the_model_the_rules_the_assumptions_and_the_limits():
     at = fresh()
-    text = "\n".join(m.value for m in at.expander[1].markdown)
+    text = "\n".join(m.value for m in at.expander[2].markdown)
     for needle in ("synthetische Strom", "erfunden", "Ankündigung", "Lineare Regression", "Gradient Boosting", "Gruppenmittel nach Art", "Median", "Quantil 0,7", "Niedrigster Stapel", "Bezug", "Paarfehler",
                    "Glücksspiel", "unerklärte Streuung", "keine Bündelung nach Schiff", "kein Geldbetrag", "Größenordnungen aus einer Simulation"):
         assert needle in text, needle
-    math = "\n".join(m.value for m in at.expander[2].markdown)
+    math = "\n".join(m.value for m in at.expander[3].markdown)
     for needle in ("LogNormal", "0{,}524", "Pinball-Verlust", "Paarfehler", "Gauß-Hermite", "2\\,\\mathrm{SE}", "Bayes-Orakel"):
         assert needle in math, needle
-    assert "](" not in text and "](" not in math                                          # keine toten Datei-Links in der App
+    assert "](" not in re.sub(r"\]\(https://sebastianhanisch\.net/[^)]*\)", "]", text) and "](" not in re.sub(r"\]\(https://sebastianhanisch\.net/[^)]*\)", "]", math)                                          # keine toten Datei-Links in der App
     intro = at.markdown[0].value
     assert "Stapelplanung-Demo" in intro and 'Expander "Wie funktioniert diese Demo?"' in intro and '"📐 Mathematische Formulierung"' in intro
 
