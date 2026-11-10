@@ -1,4 +1,4 @@
-"""Abnahmekriterien der Presets: Welche Geschichte erzählt jedes Beispielszenario, und woran erkennt man, dass sie trägt?
+"""Abnahmekriterien der Presets: Welche Geschichte erzählt jedes Beispielszenario, und woran erkennt man, dass sie stimmt?
 
 Einzige Quelle für `tools/tune_presets.py` (Abstimmung) und `tests/test_preset_stories.py` (Abnahme). Zwei Ebenen, weil das Ergebnis am EINZELNEN Block mit der Trainingshistorie schwankt (Messreihe,
 Korrektur 6): `criteria` prüft die Geschichte im MITTEL über viele Blöcke (Grundgesamtheit, das Hauptkriterium), `holds` am einen Block, den das Preset zeigt, mit ganzzahligen Schwellen und Abstand.

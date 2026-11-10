@@ -11,9 +11,9 @@ Framing: Optimierung (Umstapeln vermeiden) und Maschinelles Lernen (Prognose) so
 
 ## Warum dieses Problem, und was die Messung am Aufhänger geändert hat
 
-Naheliegend wäre „aus Merkmalen lernen schlägt den einfachen Ausgleich, und mehr Daten machen es besser“. Gemessen trägt das **nicht allgemein**. Mit Standardmerkmalen (Art, Kunde, Zoll, Wochenende, Vorlauf bis Schiff) schlägt
+Naheliegend wäre „aus Merkmalen lernen schlägt den einfachen Ausgleich, und mehr Daten machen es besser“. Gemessen gilt das **nicht allgemein**. Mit Standardmerkmalen (Art, Kunde, Zoll, Wochenende, Vorlauf bis Schiff) schlägt
 selbst das **Orakel**, das die wahre bedingte Verteilung kennt, den Ausgleich bei 300 Containern nicht (+0,043 ± 0,007 Umstapelungen je Container mit Median-Prognose, −0,004 ± 0,006 mit vorsichtigem Quantil 0,7); die gelernte
-Prognose liegt bei +0,061 ± 0,007 und auch mit 10 000 Trainingscontainern bei −0,001. Erst eine verlässliche Vorabinformation (angekündigte Verweilzeit, etwa der Abholtermin) trägt: −0,124 ± 0,006 bei mittlerer, −0,263 ± 0,005 bei
+Prognose liegt bei +0,061 ± 0,007 und auch mit 10 000 Trainingscontainern bei −0,001. Erst eine verlässliche Vorabinformation (angekündigte Verweilzeit, etwa der Abholtermin) hilft: −0,124 ± 0,006 bei mittlerer, −0,263 ± 0,005 bei
 guter Verlässlichkeit; der Hellseher liegt bei −0,607 ± 0,004 (Ausgleich 0,862 je Container). Tragend ist deshalb: **Eine Prognose ist nur so viel wert wie ihr Signal, und ihr Wert hängt am Anteil richtig geordneter Paare, nicht
 am mittleren Fehler.**
 
@@ -40,7 +40,7 @@ vier Trainings-Seeds bei kleinen Mengen), Median gegen Mittelwert gegen Quantil,
 
 ## Befunde (gemessen, keine Behauptungen)
 
-300 Container, Block 6 × 5, Füllgrad 80 %, 200 Blöcke (Seeds 0 bis 199), gepaarte Differenzen ± Standardfehler; die tragenden Zahlen mit dem Code dieser Demo nachgemessen (`tests/test_messreihe.py`, `tests/test_preset_stories.py`, `tools/PRESET_SWEEP.md`; Angaben aus den Robustheitsreihen bei 120 Containern stammen aus der Messreihe).
+300 Container, Block 6 × 5, Füllgrad 80 %, 200 Blöcke (Seeds 0 bis 199), gepaarte Differenzen ± Standardfehler; die zentralen Zahlen mit dem Code dieser Demo nachgemessen (`tests/test_messreihe.py`, `tests/test_preset_stories.py`, `tools/PRESET_SWEEP.md`; Angaben aus den Robustheitsreihen bei 120 Containern stammen aus der Messreihe).
 
 | Frage | Befund |
 |---|---|
@@ -75,7 +75,7 @@ vier Trainings-Seeds bei kleinen Mengen), Median gegen Mittelwert gegen Quantil,
 - **Kernabschnitt mit 60 statt 200 Blöcken** (Rechenzeit ohne Knopf): Kipppunkt σ 0,79 statt 0,78, äquivalentes Rauschen 0,48 wie in der Messreihe.
 - **„Zu wenig Daten“ ist eine Ziehung.** In 7 von 20 Trainingshistorien liegt die Differenz der Grundgesamtheit unter der Preset-Schwelle +0,06 (kleinster Wert +0,019); das Vorzeichen (schlechter als der Ausgleich) gilt in
   allen 20. Die Tests prüfen deshalb das Vorzeichen und die Schwellen nur teilweise (`tools/PRESET_SWEEP.md`).
-- **Preset-Seed 268 bestätigt, Zählung anders.** Mit den Kriterien des Plans (Abschnitt 7) tragen 50 statt 56 von 200 Blöcken alle fünf Geschichten; die Messreihe zählte mit einem Suchskript mit anderen Schwellen. 268 hat weiter den
+- **Preset-Seed 268 bestätigt, Zählung anders.** Mit den Kriterien des Plans (Abschnitt 7) gelten an 50 statt 56 von 200 Blöcken alle fünf Geschichten; die Messreihe zählte mit einem Suchskript mit anderen Schwellen. 268 hat weiter den
   kleinsten Abstand zum Median.
 - **Meldung und Urteil an der Stichprobe.** Die bedingte Meldung der Hauptansicht stützt ihr Urteil auf die 60 Blöcke der Stichprobe und nennt den gezeigten Block daneben; ein Urteil am einzelnen Block wäre mit der
   Trainingshistorie umgeschlagen (Messreihe, Korrektur 6).

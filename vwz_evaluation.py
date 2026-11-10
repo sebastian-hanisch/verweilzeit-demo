@@ -430,7 +430,7 @@ def diagnosis_text(d, rule_key, seed):
     text = f"{head} Am gezeigten Block (Seed {seed}): {d.block_rule} gegen {d.block_ref} Umstapelungen, einzelne Blöcke schwanken."
     if d.standard_only:
         text += (" Nur Standardmerkmale (Art, Kunde, Zoll, Wochenende, Vorlauf): in diesem Modell bleibt so viel Verweilzeit unerklärt, dass selbst die exakte Kenntnis der bedingten Verteilung kaum hilft "
-                 "(gemessen bei 6 × 5, 80 % und 300 Containern: +0,043 mit Median, -0,004 mit Quantil 0,7 gegen den Ausgleich). Erst eine verlässliche Ankündigung trägt.")
+                 "(gemessen bei 6 × 5, 80 % und 300 Containern: +0,043 mit Median, -0,004 mit Quantil 0,7 gegen den Ausgleich). Erst eine verlässliche Ankündigung hilft.")
     if d.few_data:
         text += (f" Weniger als {C.FEW_DATA_BELOW} Trainingscontainer: das Modell lernt zu wenig, das Ergebnis hängt stark an der Ziehung der Historie (Trainings-Seed ändern).")
     return text

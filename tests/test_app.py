@@ -197,7 +197,7 @@ def test_message_helps_is_a_success_with_the_block_numbers():
 def test_message_tipped_with_the_standard_features_addition():
     at = click(fresh(), "Nur Standard")
     msg = message(at, "Die Prognose kippt")
-    assert msg in list(at.warning) and "Nur Standardmerkmale (Art, Kunde, Zoll, Wochenende, Vorlauf)" in msg.value and "Erst eine verlässliche Ankündigung trägt." in msg.value
+    assert msg in list(at.warning) and "Nur Standardmerkmale (Art, Kunde, Zoll, Wochenende, Vorlauf)" in msg.value and "Erst eine verlässliche Ankündigung hilft." in msg.value
     assert "Am gezeigten Block (Seed 268): 252 gegen 238 Umstapelungen" in msg.value and "Weniger als 300 Trainingscontainer" not in msg.value
 
 

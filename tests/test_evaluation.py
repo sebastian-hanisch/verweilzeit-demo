@@ -324,7 +324,7 @@ def test_diagnosis_text_for_every_kind_and_both_additions():
     unclear = E.diagnosis_text(E.diagnose(AWARE, spread_rows(0.05), out, p), AWARE, 1)
     assert unclear.startswith("Kein klarer Unterschied: Unsicherheitsbewusst und der Ausgleich liegen im Mittel über 10 Blöcke innerhalb des Rauschens (+0.050 je Container, Standardfehler 0.100).")
     std = E.diagnosis_text(E.diagnose(Q70, spread_rows(0.5), out, E.Params(6, 5, 80, 300, 0, 3, "boosting", 5)), Q70, 1)
-    assert "Nur Standardmerkmale (Art, Kunde, Zoll, Wochenende, Vorlauf)" in std and "+0,043 mit Median, -0,004 mit Quantil 0,7" in std and "Erst eine verlässliche Ankündigung trägt." in std
+    assert "Nur Standardmerkmale (Art, Kunde, Zoll, Wochenende, Vorlauf)" in std and "+0,043 mit Median, -0,004 mit Quantil 0,7" in std and "Erst eine verlässliche Ankündigung hilft." in std
     few = E.diagnosis_text(E.diagnose(Q70, spread_rows(0.5), out, E.Params(6, 5, 80, 300, 2, 0, "boosting", 5)), Q70, 1)
     assert "Weniger als 300 Trainingscontainer" in few and "Trainings-Seed ändern" in few and "Nur Standardmerkmale" not in few
     both = E.diagnosis_text(E.diagnose(Q70, spread_rows(0.5), out, E.Params(6, 5, 80, 300, 0, 0, "boosting", 5)), Q70, 1)

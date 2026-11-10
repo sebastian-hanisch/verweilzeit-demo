@@ -1,4 +1,4 @@
-"""Abnahme der Presets an ECHTEN Daten: jede Geschichte trägt im Mittel über 200 Blöcke (Seeds 100-299) UND an dem einen Block, den das Preset zeigt; der gezeigte Block ist typisch, nicht der schönste
+"""Abnahme der Presets an ECHTEN Daten: jede Geschichte gilt im Mittel über 200 Blöcke (Seeds 100-299) UND an dem einen Block, den das Preset zeigt; der gezeigte Block ist typisch, nicht der schönste
 Einzelfall; über 20 Trainingshistorien behält die Grundgesamtheit ihr Vorzeichen (langsam). Deterministisch (kein Löser, keine Zeitgrenze)."""
 
 import pytest

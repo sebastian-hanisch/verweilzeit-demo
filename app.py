@@ -74,7 +74,7 @@ Ein Container kommt im Hafen an, und man weiß nur ungefähr, wann er abgeholt w
 st.caption("🎯 Schnellstart – ein Beispielszenario laden:")
 PRESET_HELP = {
     "Nur Standard": "Keine Ankündigung: aus Art, Kunde, Zoll, Wochenende und Vorlauf lässt sich die Verweilzeit nicht gut genug lernen, der einfache Ausgleich ist besser.",
-    "Mit Ankündigung": "Eine mittel verlässliche Ankündigung (Abholtermin) trägt die Prognose: weniger Umstapelungen als der Ausgleich.",
+    "Mit Ankündigung": "Eine mittel verlässliche Ankündigung (Abholtermin) hilft der Prognose: weniger Umstapelungen als der Ausgleich.",
     "Zu wenig Daten": "Dieselbe Ankündigung, aber nur 30 Trainingscontainer: das Modell lernt zu wenig und ist schlechter als der Ausgleich.",
     "Sehr verlässlich": "Eine gute Ankündigung (ν 0,3): fast alles Wesentliche steckt in ihr, knapp ein Drittel weniger Umstapelungen.",
     "Voller Block": "Der Block ist bis an die Grenze gefüllt: alles ist teurer, und die Prognose spart auch hier deutlich.",
@@ -307,7 +307,7 @@ Nutzen hängt darum am Anteil falsch geordneter Paare unter den gleichzeitig anw
 kreuzt, liegt der Kipppunkt.
 
 **Kleine Trainingsmengen sind ein Glücksspiel, und warum 300 Container.** Mit wenigen Trainingscontainern hängt das Ergebnis an der Ziehung der Historie (Trainings-Seed) und kann den Ausgleich verfehlen; die
-Lernkurve zeigt das Band über mehrere Seeds. Auch der einzelne Block schwankt mit der Historie, deshalb tragen die Preset-Geschichten an der Grundgesamtheit über 200 Blöcke und nicht nur am gezeigten Block.
+Lernkurve zeigt das Band über mehrere Seeds. Auch der einzelne Block schwankt mit der Historie, deshalb gelten die Preset-Geschichten an der Grundgesamtheit über 200 Blöcke und nicht nur am gezeigten Block.
 Die Zahlen hängen an der Lauflänge: bei 120 Containern sind Anlauf und Auslauf ein großer Teil des Laufs, deshalb ist der Standard 300.
 
 **Grenzen dieses Modells** (bewusst so gewählt, damit die Aussage ehrlich bleibt):
